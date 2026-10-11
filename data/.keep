@@ -1,2 +1,7 @@
 
 https://wyniki.datasport.pl/results5969/show/advanced.html?dystans=1&s1=msc
+
+
+
+Temat projektu"Analiza i predykcja strategii zarządzania tempem (pacing) u amatorów w biegach masowych na dystansie 10 km ze szczególnym uwzględnieniem różnic płciowych."Perspektywa klienta (Brief)
+Waszym klientem jest dyrektor organizacyjny dużego cyklu biegów miejskich. Oczekuje on konkretnych rekomendacji, jak zoptymalizować rozmieszczenie punktów medycznych na trasie oraz jak dopasować strategie oficjalnych "zająców" (pacemakerów), aby ułatwić amatorom równe pokonanie dystansu i zmniejszyć liczbę zasłabnięć.   Główne hipotezy badawczeHipoteza 1 (Behawioralna): Kobiety rzadziej niż mężczyźni doświadczają drastycznego spadku tempa w drugiej połowie dystansu (tzw. zderzenia ze ścianą), częściej realizując równą strategię biegu lub tzw. negative split (druga połowa szybsza niż pierwsza).Hipoteza 2 (Demograficzno-wydolnościowa): Największe ryzyko gwałtownego spadku tempa po 5. kilometrze dotyczy młodych mężczyzn (poniżej 30. roku życia), którzy rozpoczynają bieg w tempie znacznie przewyższającym ich możliwości wyjściowe.Hipoteza 3 (Predykcyjna pod ML): Na podstawie danych z zaledwie pierwszego punktu pomiarowego (międzyczas na 5. kilometrze), płci oraz kategorii wiekowej, algorytm jest w stanie skutecznie przewidzieć, czy dany amator ukończy bieg z drastycznym spadkiem tempa.
