@@ -1,0 +1,1 @@
+# Zespo-owyProjektAnalityczny
