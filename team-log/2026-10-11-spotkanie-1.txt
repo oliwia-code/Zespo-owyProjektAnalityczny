@@ -1,0 +1,37 @@
+Data: 11.10
+
+Zadania: 
+Pierwsze spotkanie kończy się konkretnymi – decyzjami i gotowym środowiskiem pracy
+1. Dobór zespołów 4-5 os., wybranie nazwy
+2. Wybór domeny i problemu - zespół dyskutuje i wybiera domenę, w której chce pracować, oraz formułuje wstępne pytanie analityczne lub hipotezę (na tym etapie nie musi to być precyzyjne – wystarczy kierunek). Pomysł zapiszcie w formie 2-3 zdań: czego chcemy się dowiedzieć i po co
+3. Utworzyć repozytorium na GitHub. Zainicjujcie strukturę folderów (data, notebooks, reports, team-log) i dodajcie plik README.md z nazwą projektu, składem zespołu i jednozdaniowym opisem problemu
+4. Wstępna identyfikacja źródeł danych - dla wybranej domeny: gdzie i jak planujecie pozyskać dane? Wylistujcie co najmniej dwa możliwe źródła (API, strony do scrapingu, otwarte zbiory publiczne, własna ankieta) (nie musicie jeszcze pobierać danych – chodzi o plan)
+5. Wybór narzędzi i środowisko pracy - ustalcie wspólne środowisko: język, IDE lub środowisko notebookowe, narzędzie do komunikacji, sposób zarządzania zadaniami w zespole notatki w repozytorium
+
+Podsumowanie realizacji zadań: 
+1. Utworzony zespół 3 os. 
+2. Wstępne określenie tematu i hipotez
+3. Utworzone repozytorium
+4. Znalezione źródło danych (https://wyniki.datasport.pl/results5969/show/advanced.html?dystans=1&s1=msc)
+5. Wybrane
+
+Logi: 
+- Utworzenie zespołu: A.N., N.N., O.S. 
+- Utworzenie rezpozytorium "Zespo-owyProjektAnalityczny" (https://github.com/oliwia-code/Zespo-owyProjektAnalityczny), utworzenie struktury repozytorium
+- Utworzenie folderu "team-log" - tutaj będziemy zapisywać notatki z realizacji projektu w plikach txt z nazwami w formacie "YYYY-MM-DD_spotkanie-X"
+- Wybór języka programowania: Python, środowisko: Colab, PyCharm
+- Wybór formy komunikacji: Discord, Messanger
+- Wybór tematyki: analiza wyników uczestników biegu 
+
+-----
+
+Przykładowe kierunki (lista niewiążąca, podana jako przykładowa przez prowdzącą):
+- Rynek pracy (oferty zatrudnienia, wymagania kompetencyjne, płace)
+- Rynek nieruchomości (ceny, lokalizacje, trend)
+- Jakość powietrza lub inne dane środowiskowe
+- Analiza treści z mediów społecznościowych lub forów
+- Dane finansowe lub rynki giełdowe
+- Zachowania konsumentów (dane z platform e-commerce)
+- Dane sportowe (wyniki, statystyki zawodników)
+
+Przykłady dopuszczalnych źródeł (podane przez prowadzącą): dane.gov.pl, BDL GUS, IMGW, GIOŚ, NBP API, Eurostat, Reddit API, YouTube Data API, Spotify API, OpenStreetMap / Overpass API, scraping OLX / Pracuj.pl / Otodom, własne ankiety
