@@ -1,4 +1,5 @@
 Data: 11.10
+Obecni: Ania Czernik, Natalia Nowak, Oliwia Sokołowska
 
 Zadania: 
 1. Prezentacja statusu pozyskanych danych(stan faktyczny):  -  Ania
@@ -69,3 +70,14 @@ zawęzić lub zmodyfikować?
   - Czy potrzebujecie dodatkowych danych – i czy jest realistyczna możliwość ich zebrania
 przed Spotkaniem 5?
   - Jaki rodzaj modelu / metody analitycznej najbardziej pasuje do tego, co widzicie w danych?
+
+Podsumowanie realizacji zadań:
+1. Rozmowa z recenzentem:
+  - zespół musi nadrobić część zadania ze spotkania-2 
+  - kwestia zmiany ról - zespół może dowolnie wymieniać się rolami w pracy przy kolejnych zadaniach
+  - kwestia przechowywania danych w repozytorium - z naszym zbiorem danych nie jest to problem żeby go przechowywać w repozytorium
+2. Ania przeanalizowała dane i zrobiła raport dane.md
+3. Zadania zostały podzielone do realizacji na osoby
+4. Został utworzony team-log ze spotkania-3 
+
+Logi:
