@@ -3,50 +3,36 @@ Data: 08.11
 Zadania: 
 Trzecie spotkanie poświęcone jest eksploracyjnej analizie zebranych danych (EDA), ocenie ich jakości oraz weryfikacji, czy dostępne dane pozwalają odpowiedzieć na przyjęte pytania badawcze. 
 Na podstawie przeprowadzonej analizy zespół aktualizuje koncepcję projektu i plan dalszych prac.
-1. Prezentacja statusu pozyskanych danych – przedstawienie aktualnego stanu zbioru danych, liczby rekordów, wykorzystanych źródeł oraz ewentualnych problemów związanych z ich pozyskiwaniem.
-2. Analiza eksploracyjna (EDA) – sprawdzenie struktury danych, typów zmiennych, brakujących wartości, rozkładów oraz zależności pomiędzy zmiennymi.
-3. Raport jakości danych – identyfikacja problemów jakościowych i określenie sposobów ich rozwiązania.
-4. Słownik zmiennych – opisanie zmiennych wykorzystywanych w analizie, ich typów, znaczenia i źródeł pochodzenia.
-5. Peer review #1 – konsultacja projektu z recenzentem i uzyskanie informacji zwrotnej dotyczącej koncepcji oraz zgromadzonych danych.
-6. Aktualizacja pytań badawczych i planu projektu – weryfikacja dotychczasowych założeń na podstawie przeprowadzonej analizy.
+1. Prezentacja statusu pozyskanych danych – przedstawienie aktualnego stanu zbioru danych, liczby rekordów, wykorzystanych źródeł oraz ewentualnych problemów związanych z ich pozyskiwaniem. (osoba odpowiedzialna: Ania)
+2. Analiza eksploracyjna (EDA) – sprawdzenie struktury danych, typów zmiennych, brakujących wartości, rozkładów oraz zależności pomiędzy zmiennymi. (osoba odpowiedzialna: Oliwia)
+3. Raport jakości danych – identyfikacja problemów jakościowych i określenie sposobów ich rozwiązania. (osoba odpowiedzialna: Oliwia)
+4. Słownik zmiennych – opisanie zmiennych wykorzystywanych w analizie, ich typów, znaczenia i źródeł pochodzenia. (osoba odpowiedzialna: Ania)
+5. Peer review #1 – konsultacja projektu z recenzentem i uzyskanie informacji zwrotnej dotyczącej koncepcji oraz zgromadzonych danych. (osoba odpowiedzialna: Natalia)
+6. Aktualizacja pytań badawczych i planu projektu – weryfikacja dotychczasowych założeń na podstawie przeprowadzonej analizy. (osoba odpowiedzialna: Natalia)
 
-Podsumowanie realizacji zadań:
-1. Rozmowa z recenzentem (Peer review #1)
-Podczas konsultacji z recenzentem omówiono dotychczasowy stan projektu i organizację dalszej pracy.
-
-Najważniejsze ustalenia:
+Najważniejsze ustalenia po rozmowie z recenzentem (Peer review #1) - podczas konsultacji z recenzentem omówiono dotychczasowy stan projektu i organizację dalszej pracy.
   - Zespół powinien nadrobić część zadań ze Spotkania 2, które nie zostały jeszcze w pełni zrealizowane.
   - Ustalono, że role w zespole nie są przypisane na stałe. Członkinie mogą dowolnie wymieniać się obowiązkami i rolami w zależności od potrzeb kolejnych etapów projektu.
   - Omówiono kwestię przechowywania danych w repozytorium GitHub. W przypadku naszego zbioru danych nie ma przeszkód, aby przechowywać go bezpośrednio w repozytorium.
 
-2. Analiza danych
-Ania przeprowadziła analizę pozyskanych danych i przygotowała plik dane.md, zawierający informacje dotyczące zbioru danych.
+Aktualny stan danych, jakość danych:
+- Liczba rekordów: 9887 (pełny zbiór wyników ING Biegnij Warszawo 2026).
+- Źródła: API Datasport (plik JSON z endpointu results.json). Zautomatyzowane pobieranie skryptem Pythona.
+- Problemy: Organizator udostępnia wyniki wyłącznie jako trudny do analizy plik PDF, więc za pomocą DevTools został znaleziony ukryty endpoint serwera, a dane zostały pobrane w "przyjaznym" formacie json.
+- Kompletność: Oczekujemy na weryfikację podczas EDA, wstępnie zbiór wydaje się kompletny dla zawodników, którzy ukończyli bieg.
 
-Aktualny stan danych:
-Liczba rekordów: 9887 (pełny zbiór wyników ING Biegnij Warszawo 2026).
-Źródła: API Datasport (plik JSON z endpointu results.json). Zautomatyzowane pobieranie skryptem Pythona.
-Problemy: Organizator udostępnia wyniki wyłącznie jako trudny do analizy plik PDF, więc za pomocą DevTools został znaleziony ukryty endpoint serwera, a dane zostały pobrane w "przyjaznym" formacie json.
-Kompletność: Oczekujemy na weryfikację podczas EDA, wstępnie zbiór wydaje się kompletny dla zawodników, którzy ukończyli bieg.
-
-3. Podział zadań
-Zadanie 1 – prezentacja statusu pozyskanych danych – Ania.
-Zadanie 2 – przeprowadzenie analizy eksploracyjnej danych (EDA) – Oliwia.
-Zadanie 3 – przygotowanie raportu jakości danych – Oliwia.
-Zadanie 4 – przygotowanie słownika zmiennych – Ania.
-Zadanie 5 – peer review, przegląd koncepcji i danych – cały zespół.
-Zadanie 6 – aktualizacja pytań badawczych i planu projektu – Natalia.
-Zadanie 7 – przygotowanie i uzupełnienie team logu - Natalia.
-
-4. Dokumentacja projektu
-Utworzono wpis do team logu ze Spotkania 3, dokumentujący przebieg prac, ustalenia z recenzentem oraz podział obowiązków.
+Podsumowanie realizacji zadań:
+1., 5. Rozmowa z recenzentem
+2. Ania przeprowadziła analizę pozyskanych danych i przygotowała plik dane.md, zawierający informacje dotyczące zbioru danych
+3. Wnioski po wczytaniu danych w sekcji "Aktualny stan danych, jakość danych"
+4. Przygotowany w docs/slownik_zmiennych.md
+6. Kontynuacja, doprecyzowanie
 
 Logi:
-1. Obecność na spotkaniu: Ania Czernik, Natalia Nowak, Oliwia Sokołowska.
-2. Przeprowadzono rozmowę z recenzentem dotyczącą aktualnego stanu projektu i dalszego sposobu realizacji.
-3. Ustalono możliwość elastycznej zmiany ról i obowiązków pomiędzy członkiniami zespołu.
-4. Potwierdzono możliwość przechowywania zebranego zbioru danych w repozytorium GitHub.
-5. Ania przeprowadziła analizę danych i przygotowała plik dane.md.
-6. Dokonano podziału zadań związanych z kolejnym etapem projektu.
-7. Ustalono konieczność uzupełnienia dokumentacji oraz nadrobienia części zadań ze Spotkania 2.
-8. Przygotowano team log dokumentujący przebieg trzeciego spotkania.
+- Przeprowadzono rozmowę z recenzentem dotyczącą aktualnego stanu projektu i dalszego sposobu realizacji
+- Ustalono możliwość elastycznej zmiany ról i obowiązków pomiędzy członkiniami zespołu
+- Potwierdzono możliwość przechowywania zebranego zbioru danych w repozytorium GitHub
+- Ania przeprowadziła analizę danych i przygotowała plik dane.md
+- Dokonano podziału zadań związanych z kolejnym etapem projektu
+- Ustalono konieczność uzupełnienia dokumentacji oraz nadrobienia części zadań ze Spotkania 2
 
