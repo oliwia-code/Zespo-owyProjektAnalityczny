@@ -22,6 +22,12 @@ Najważniejsze ustalenia:
 2. Analiza danych
 Ania przeprowadziła analizę pozyskanych danych i przygotowała plik dane.md, zawierający informacje dotyczące zbioru danych.
 
+Aktualny stan danych:
+Liczba rekordów: 9887 (pełny zbiór wyników ING Biegnij Warszawo 2026).
+Źródła: API Datasport (plik JSON z endpointu results.json). Zautomatyzowane pobieranie skryptem Pythona.
+Problemy: Organizator udostępnia wyniki wyłącznie jako trudny do analizy plik PDF, więc za pomocą DevTools został znaleziony ukryty endpoint serwera, a dane zostały pobrane w "przyjaznym" formacie json.
+Kompletność: Oczekujemy na weryfikację podczas EDA, wstępnie zbiór wydaje się kompletny dla zawodników, którzy ukończyli bieg.
+
 3. Podział zadań
 Zadanie 1 – prezentacja statusu pozyskanych danych – Ania.
 Zadanie 2 – przeprowadzenie analizy eksploracyjnej danych (EDA) – Oliwia.
@@ -43,3 +49,4 @@ Logi:
 6. Dokonano podziału zadań związanych z kolejnym etapem projektu.
 7. Ustalono konieczność uzupełnienia dokumentacji oraz nadrobienia części zadań ze Spotkania 2.
 8. Przygotowano team log dokumentujący przebieg trzeciego spotkania.
+
