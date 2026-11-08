@@ -1,3 +1,38 @@
-Data: 11.07
+Data: 07.11
 
 Zadania: 
+Drugie spotkanie poświęcone jest doprecyzowaniu koncepcji projektu analitycznego, zaplanowaniu pozyskiwania danych oraz podziałowi obowiązków w zespole.
+1. Sformułowanie pytań badawczych i hipotez – określenie głównego pytania badawczego, 2–3 hipotez oraz kryterium sukcesu projektu.
+2. Szczegółowy plan pozyskiwania danych – określenie źródeł danych, formatów, metod pobierania, osób odpowiedzialnych i terminów realizacji.
+3. Podział ról i obowiązków – ustalenie odpowiedzialności poszczególnych członkiń zespołu za zbieranie, analizę i przetwarzanie danych oraz dokumentację projektu.
+4. Pierwsze pobranie danych – wykonanie testowego pobrania danych z wybranego źródła w celu sprawdzenia jego dostępności i struktury.
+5. Wpis do team logu – udokumentowanie przebiegu spotkania, podjętych decyzji, przydzielonych zadań i napotkanych trudności.
+
+Podsumowanie realizacji zadań:
+1. Pytanie badawcze i hipotezy
+Tematem projektu pozostaje analiza wyników uczestników biegu.
+
+Wstępne główne pytanie badawcze:
+Jakie zależności występują między cechami uczestników biegu, takimi jak płeć i kategoria wiekowa, a osiąganymi przez nich wynikami?
+
+2. Podział ról w zespole
+Ustalono następujący podział obowiązków:
+  Oliwia S. – Dokumentalista / Koordynator (prowadzenie dokumentacji projektu, aktualizacja README i team logów).
+  Ania K. – Data Engineer / ML Engineer (pozyskiwanie danych, przygotowanie skryptów pobierających oraz późniejsze przygotowanie i wykorzystanie modeli uczenia maszynowego).
+  Natalia N. – Analityk (analiza danych, statystyki opisowe, eksploracyjna analiza danych i formułowanie wniosków).
+
+3. Podział zadań do wykonania
+Zadanie 1 – sformułowanie pytań badawczych, hipotez i kryterium sukcesu – Natalia.
+Zadanie 2 – przygotowanie szczegółowego planu pozyskiwania danych – Ania.
+Zadanie 3 – uzgodnienie podziału ról i planu pracy – cały zespół.
+Zadanie 4 – pierwsze testowe pobranie danych i sprawdzenie ich struktury – Ania.
+Zadanie 5 – przygotowanie i uzupełnienie team logu – Oliwia.
+
+Logi:
+1. Ustalono podział ról w zespole pomiędzy trzy członkinie.
+2. Przypisano odpowiedzialność za poszczególne zadania związane z przygotowaniem projektu.
+3. Potwierdzono temat projektu – analiza wyników uczestników biegu.
+3. Wskazano źródło danych – serwis Datasport z wynikami zawodów.
+4. Ustalono, że dane będą pobierane i przetwarzane za pomocą skryptów w Pythonie.
+5. Zaplanowano testowe pobranie danych w celu sprawdzenia ich dostępności i struktury.
+6. Ustalono konieczność uzupełnienia dokumentacji projektu w repozytorium GitHub.
