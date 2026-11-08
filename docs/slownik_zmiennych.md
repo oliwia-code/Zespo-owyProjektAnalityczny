@@ -31,3 +31,6 @@
 | `id_per` | `int64` | Zewnętrzny ID biegacza w systemie Datasport. | Liczba całkowita (lub 0) | API Datasport |
 | `odleglosc` | `float64` | Długość całego dystansu w metrach. | 10000.00 | API Datasport |
 | `speed` | `float64` | Średnie tempo w przeliczeniu prawdopodobnie na min/km. | Liczba zmiennoprzecinkowa, np. 3.08 | API Datasport |
+
+**Pominięte zmienne:**
+Podczas zrzutu danych z API zidentyfikowano kilkadziesiąt dodatkowych kolumn technicznych i flag (m.in. serie `mscdod1-8`, `nazdod1-8`, `uwagi`, `zlystart`, `dns`, `dnf`, `dsq`). Zostały one celowo pominięte w niniejszym słowniku. Wstępna inspekcja surowego pliku wykazała, że są to w przytłaczającej większości puste zmienne (wartości null, puste ciągi znaków lub zera), których system Datasport nie wykorzystał przy tym konkretnym biegu. Całkowite usunięcie tych kolumn z ramki danych (drop) będzie jednym z pierwszych kroków czyszczenia w naszym notatniku EDA, co pozwoli zoptymalizować zbiór wyłącznie pod kątem naszego pytania badawczego.
