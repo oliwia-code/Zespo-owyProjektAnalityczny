@@ -1,4 +1,4 @@
-# 1. Pytanie badawcze i hipotezy  **wersja robocza**
+# Pytanie badawcze i hipotezy  **wersja robocza**
 
 Tematem projektu pozostaje analiza wyników uczestników biegu.
 
