@@ -18,7 +18,7 @@ Jakie zależności występują między cechami uczestników biegu, takimi jak p�
 2. Podział ról w zespole
 Ustalono następujący podział obowiązków:
   Oliwia S. – Dokumentalista / Koordynator (prowadzenie dokumentacji projektu, aktualizacja README i team logów).
-  Ania K. – Data Engineer / ML Engineer (pozyskiwanie danych, przygotowanie skryptów pobierających oraz późniejsze przygotowanie i wykorzystanie modeli uczenia maszynowego).
+  Ania C. – Data Engineer / ML Engineer (pozyskiwanie danych, przygotowanie skryptów pobierających oraz późniejsze przygotowanie i wykorzystanie modeli uczenia maszynowego).
   Natalia N. – Analityk (analiza danych, statystyki opisowe, eksploracyjna analiza danych i formułowanie wniosków).
 
 3. Podział zadań do wykonania
