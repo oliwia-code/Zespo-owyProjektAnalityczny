@@ -1,4 +1,4 @@
-# Pytanie badawcze i hipotezy  **wersja robocza** - poprawić (kilometry, pomoc organizatorom - gdzie postawić stoiska z piciem itp)
+# Pytanie badawcze i hipotezy
 
 ## 1. Temat projektu
 Predykcja czasu ukończenia biegu 10 km na podstawie wyniku z połowy dystansu i danych demograficznych.
