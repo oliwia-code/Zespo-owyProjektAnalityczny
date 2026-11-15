@@ -1,0 +1,72 @@
+Data: 15.11
+Obecni:
+- Oliwia Sokołowska
+- Anna Czernik
+- Natalia Nowak
+
+Zadania: 
+Celem jest przejście od opisu danych do ich przekształcania i modelowania. 
+Dane powinny być już w dużej mierze wyczyszczone, a kolejny krok to budowa odtwarzalnego pipeline'u preprocessingu, inżynierii cech i pierwszych wynikach analitycznych. 
+Za tydzień (Spotkanie 5) oddajecie raport midterm – dziś planujecie jego strukturę i podział pracy.
+
+1. Dyskusja na temat aktualnego stanu projektu (osoba odpowiedzialna: cały zespół)
+2. Czyszczenie danych (osoba odpowiedzialna: Oliwia)
+3. Na podstawie wyników EDA i wiedzy domenowej stwórzcie nowe zmienne, które mogą wzmocnić siłę predykcyjną lub opisową modelu (osoba odpowiedzialna: Ania)
+4. Zaimplementujcie baseline oraz min. 1 bardziej zaawansowany model lub metodę analityczną. Kod trzymajcie w src/modeling.py lub w notebooku notebooks/02_modeling.ipynb (osoba odpowiedzialna: ___)
+5. Ustalcie i zaimplementujcie schemat walidacji oraz metryki (osoba odpowiedzialna: ___)
+6. Raport midterm oddajecie na Spotkaniu 5. Zaplanujcie strukturę i podzielcie pisanie teraz (osoba odpowiedzialna: cały zespół)
+7. Przygotowanie raportu (prezentacji) midterm na Spotkanie 5 - 21.11 (osoba odpowiedzialna: cały zespół)
+
+Podsumowanie realizacji zadań: 
+1. Dyskusja, plan realizacji, podział zadań
+2. Usunięcie pustych kolumn, resztę czyszczenia danych wykona: Oliwia
+3. 
+4. 
+5. 
+6. 
+7. 
+
+Logi: 
+- Wyczytanie danych w Colabie
+- Analiza eksploracyjna danych
+- Identyfikacja i usunięcie pustych kolumn
+- Dopracowanie pytań i hipotez badawczych na podstawie danych po ekspoloracji
+
+-----
+
+Instrukcje do zadania 2.: 
+Pipeline powinien obejmować:
+• Wczytanie surowych danych z data/raw/ – bez modyfikowania oryginałów
+• Obsługę brakujących wartości (imputacja lub usunięcie – z uzasadnieniem)
+• Usunięcie lub oznaczenie outlierów (zgodnie z decyzją z docs/jakosc_danych.md)
+• Kodowanie zmiennych kategorycznych (one-hot, label encoding, target encoding)
+• Skalowanie / normalizację zmiennych numerycznych (jeśli potrzebne)
+• Zapis przetworzonych danych do data/processed/
+Pipeline musi dać się uruchomić jedną komendą (python src/preprocessing.py) i produkować identyczny wynik przy każdym uruchomieniu. Ziarno losowości ustawiajcie jawnie (random_state=42 lub analogicznie)
+
+Instrukcje do zadania 3.: 
+Każda nowa cecha musi być udokumentowana w słowniku zmiennych (docs/slownik_zmiennych.md) z uzasadnieniem, dlaczego została wprowadzona.
+• Transformacje zmiennych (log, sqrt, binning ciągłych na kategorie) (osoba odpowiedzialna: Ania)
+• Cechy czasowe: rok, miesiąc, dzień tygodnia, lag, rolling mean (dla szeregów)
+• Interakcje między zmiennymi (iloczyn, iloraz, flagi warunkowe)
+• Agregacje grupowe (średnia / odchylenie kategorii na poziomie grupy)
+• Cechy tekstowe: długość, liczba słów, TF-IDF (jeśli dane tekstowe)
+
+Instrukcje do zadania 5.: 
+Zmiana metryk po zobaczeniu wyników to p-hacking – niedopuszczalny w rzetelnej analizie.
+• Podział danych: train/test split (np. 80/20) lub cross-validation (np. 5-fold CV) – wybierzcie jedno i uzasadnijcie
+• Dla klasyfikacji: accuracy, F1 (macro/weighted), AUC-ROC, macierz pomyłek
+• Dla regresji: MAE, RMSE, R2 – plus błąd względny (MAPE) jeśli wartości mocno sięróżnią skalą
+• Dla klasteryzacji: silhouette score, Davies-Bouldin, interpretacja klastrów
+• Dla szeregów czasowych: walidacja walk-forward (nie losowy split!)
+
+Instrukcje do zadania 6.: 
+Wymagana struktura raportu midterm:
+• 1. Streszczenie (max 200 słów) – problem, dane, dotychczasowe wyniki, dalszy plan
+• 2. Opis problemu badawczego i pytań analitycznych
+• 3. Dane: źródła, liczba rekordów, kluczowe cechy, problemy jakościowe i jak je rozwiązano
+• 4. Metodologia: pipeline preprocessingu, inżynieria cech, wybór modeli i uzasadnienie
+• 5. Wstępne wyniki: metryki baseline i pierwszego modelu, kluczowe wizualizacje (min. 3)
+• 6. Plan na drugą połowę projektu: co zostało do zrobienia i kiedy
+• 7. Podział pracy w zespole (kto napisał co, kto zaimplementował co)
+Raport oddajecie jako PDF wygenerowany z Quarto (.qmd) lub Jupyter Book – nie Word. Wykresy muszą być wektorowe (SVG/PDF) lub rastrowe w wysokiej rozdzielczości (≥ 150 DPI).
