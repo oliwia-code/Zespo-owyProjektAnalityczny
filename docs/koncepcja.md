@@ -60,18 +60,21 @@ Ważnym elementem projektu będzie także pokazanie, w jaki sposób przygotowany
 
 ## 5. Plan weryfikacji hipotez
 - **H1:** Sprawdzenie zależności między czasem na 5 km a czasem na 10 km.
+
 W pierwszym etapie przeanalizujemy zależność między czasem uzyskanym na połowie dystansu a końcowym czasem biegu.
 Następnie przygotujemy prosty model przewidujący czas na 10 km wyłącznie na podstawie wyniku z 5 km. Jego wyniki porównamy z rzeczywistymi czasami uczestników.
 
 - **H2:** Sprawdzenie wpływu danych demograficznych na dokładność predykcji.
+  
 Zbudujemy i porównamy dwa warianty modelu:
-- Model 1 – przewidywanie czasu na 10 km wyłącznie na podstawie czasu na 5 km.
-- Model 2 – przewidywanie czasu na 10 km na podstawie czasu na 5 km, płci i kategorii wiekowej.
+-- Model 1 – przewidywanie czasu na 10 km wyłącznie na podstawie czasu na 5 km.
+-- Model 2 – przewidywanie czasu na 10 km na podstawie czasu na 5 km, płci i kategorii wiekowej.
 
 Do modelowania możemy wykorzystać np. regresję liniową i Random Forest Regressor.
 Porównamy wyniki modeli na tych samych danych testowych, aby sprawdzić, czy uwzględnienie dodatkowych cech poprawia dokładność przewidywań.
   
 - **H3:** Sprawdzenie różnic w tempie biegu między kobietami a mężczyznami.
+  
 Przeanalizujemy, jak zmienia się tempo uczestników pomiędzy pierwszą a drugą połową dystansu 10 km. Na podstawie czasu na 5 km i końcowego czasu na 10 km obliczymy czas pokonania drugiej połowy biegu.
 Następnie porównamy wyniki kobiet i mężczyzn, aby sprawdzić, czy mężczyźni częściej zwalniają na drugiej połowie dystansu, a kobiety utrzymują bardziej stabilne tempo.
 Sprawdzimy również, czy zaobserwowane różnice mogą mieć znaczenie przy przewidywaniu końcowego czasu ukończenia biegu.
