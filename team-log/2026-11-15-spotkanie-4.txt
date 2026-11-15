@@ -71,3 +71,37 @@ Wymagana struktura raportu midterm:
 • 6. Plan na drugą połowę projektu: co zostało do zrobienia i kiedy
 • 7. Podział pracy w zespole (kto napisał co, kto zaimplementował co)
 Raport oddajecie jako PDF wygenerowany z Quarto (.qmd) lub Jupyter Book – nie Word. Wykresy muszą być wektorowe (SVG/PDF) lub rastrowe w wysokiej rozdzielczości (≥ 150 DPI).
+
+
+
+
+
+dla natalii: 
+Sztywny podział, w którym jedna osoba robi całe Zadanie 4 (modele), a druga całe Zadanie 5 (walidacja), stworzy Wam spore "wąskie gardło" i konflikty zależności.
+
+Wynika to z cyklu życia modelu: najpierw musicie podzielić dane (Zadanie 5), potem wytrenować modele (Zadanie 4), a na końcu wrzucić ich wyniki do funkcji liczących błędy (Zadanie 5). Jeśli podzielicie się zadaniami 1:1, będziecie się nawzajem blokować.
+
+Oto dwa znacznie sensowniejsze sposoby na podział tej pracy, które pozwolą Wam działać równolegle bez konfliktów w repozytorium:
+
+Opcja 1: Podział na modele (Najbardziej polecany)
+Zamiast dzielić się "etapami", podzielcie się "algorytmami".
+
+Wspólny start (15-30 min): Ustalacie wspólnie schemat (np. split 80/20, random_state=42) i konkretne metryki. Jedna z Was pisze prostą funkcję do podziału i przygotowuje szkielet pliku lub notebooka.
+
+Natalia: Przejmuje model Baseline. Trenuje go na wspólnym podziale i aplikuje ustalone metryki.
+
+Ty: Przejmujesz model zaawansowany (np. XGBoost czy Random Forest). Pracujesz na tym samym podziale (żeby wyniki były porównywalne), trenujesz model, ewentualnie tunujesz hiperparametry i wyliczasz te same metryki dla swojego modelu.
+
+Dlaczego to działa: Obie macie pełne ręce roboty w tym samym czasie. Twój zaawansowany model może zająć trochę więcej czasu (np. przez GridSearch), podczas gdy Natalia zamknie Baseline i przygotuje tabelę do porównania wyników.
+
+Opcja 2: Podział inżynieryjny (Pipeline)
+Jeśli wolicie podział funkcyjny i dobrze czujecie się w pisaniu kodu modularnego (w plikach .py, a nie tylko w notebookach):
+
+Ty robisz walidację i ewaluację (Zadanie 5): Tworzysz skrypt (np. src/validation.py), w którym piszesz dwie główne funkcje. Jedna do podziału danych (prepare_train_test), a druga do ewaluacji (evaluate_model(y_true, y_pred), która zwraca ładny słownik z ustalonymi metrykami, np. RMSE i R2).
+
+Natalia robi modelowanie (Zadanie 4): Importuje Twoje funkcje. Skupia się wyłącznie na instancjonowaniu modeli (Baseline + Advanced) z np. scikit-learn, wywołuje na nich metodę fit, a następnie przepuszcza predykcje przez Twoją funkcję evaluate_model.
+
+Dlaczego to działa: Rozdzielacie logikę. Ty dbasz o poprawność rygoru eksperymentu (żeby uniknąć wycieku danych czy p-hackingu), a Natalia o architekturę modeli.
+
+Rekomendacja:
+Wybierzcie Opcję 1, jeśli większość pracy robicie w Jupyter Notebookach (notebooki ciężko się merguje w Gicie, więc łatwiej, jak każda pracuje nad własną sekcją algorytmu lub w osobnym notebooku np. 02a_modeling_baseline.ipynb i 02b_modeling_advanced.ipynb). Jeśli piszecie czysty kod obiektowy/funkcyjny w plikach Pythona, Opcja 2 będzie bardzo elegancka i zgodna z dobrymi praktykami inżynierii oprogramowania. Zadbajcie tylko o wspólne ustalenie tzw. seeda (np. random_state=42) przy podziale na zbiór treningowy i testowy, abyście obie trenowały modele na dokładnie tych samych danych.
