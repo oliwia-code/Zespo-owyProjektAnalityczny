@@ -12,10 +12,11 @@ Za tydzień (Spotkanie 5) oddajecie raport midterm – dziś planujecie jego str
 1. Dyskusja na temat aktualnego stanu projektu (osoba odpowiedzialna: cały zespół)
 2. Czyszczenie danych (osoba odpowiedzialna: Oliwia)
 3. Na podstawie wyników EDA i wiedzy domenowej stwórzcie nowe zmienne, które mogą wzmocnić siłę predykcyjną lub opisową modelu (osoba odpowiedzialna: Ania)
-4. Zaimplementujcie baseline oraz min. 1 bardziej zaawansowany model lub metodę analityczną. Kod trzymajcie w src/modeling.py lub w notebooku notebooks/02_modeling.ipynb (osoba odpowiedzialna: ___)
-5. Ustalcie i zaimplementujcie schemat walidacji oraz metryki (osoba odpowiedzialna: ___)
+4. Zaimplementujcie baseline oraz min. 1 bardziej zaawansowany model lub metodę analityczną. Kod trzymajcie w src/modeling.py lub w notebooku notebooks/02_modeling.ipynb (osoba odpowiedzialna: Natalia)
+5. Ustalcie i zaimplementujcie schemat walidacji oraz metryki (osoba odpowiedzialna: Ania)
 6. Raport midterm oddajecie na Spotkaniu 5. Zaplanujcie strukturę i podzielcie pisanie teraz (osoba odpowiedzialna: cały zespół)
 7. Przygotowanie raportu (prezentacji) midterm na Spotkanie 5 - 21.11 (osoba odpowiedzialna: cały zespół)
+8. Team-log ze Spotkania nr. 4 (osoba odpowiedzialna: Oliwia)
 
 Podsumowanie realizacji zadań: 
 1. Dyskusja, plan realizacji, podział zadań
