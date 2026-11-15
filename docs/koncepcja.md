@@ -15,9 +15,10 @@ Pytanie będzie weryfikowane z wykorzystaniem następujących zmiennych ze zbior
 - plec – płeć uczestnika (K/M),
 - katw – kategoria wiekowa uczestnika,
 - czas na 5 km – czas uzyskany na połowie dystansu,
-- czas – czas netto ukończenia biegu na dystansie 10 km.
+- czas – czas netto ukończenia biegu na dystansie 10 km,
+- start - godzina zegarowa przebiegnięcia przez linię startu ("szybsi" startują na takich biegach w pierwszej kolejności)
 
-Głównym celem analizy będzie stworzenie modelu predykcyjnego, który na podstawie czasu uzyskanego na 5 km oraz płci i kategorii wiekowej oszacuje końcowy czas biegu na 10 km.
+Głównym celem analizy będzie stworzenie modelu predykcyjnego, który na podstawie czasu uzyskanego na 5 km oraz płci i kategorii wiekowej oszacuje końcowy czas biegu na 10 km i godzinę zegarową, w której to się stanie.
 
 Jako zmienną, którą będziemy przewidywać, przyjmujemy czas netto ukończenia biegu. Jest to czas mierzony od momentu przekroczenia linii startu do przekroczenia linii mety przez danego uczestnika.
 
