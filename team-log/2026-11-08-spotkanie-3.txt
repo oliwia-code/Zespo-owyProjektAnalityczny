@@ -1,4 +1,8 @@
 Data: 08.11
+Obecni:
+- Oliwia Sokołowska
+- Anna Czernik
+- Natalia Nowak
 
 Zadania: 
 Trzecie spotkanie poświęcone jest eksploracyjnej analizie zebranych danych (EDA), ocenie ich jakości oraz weryfikacji, czy dostępne dane pozwalają odpowiedzieć na przyjęte pytania badawcze. 
