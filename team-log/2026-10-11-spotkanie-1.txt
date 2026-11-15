@@ -1,4 +1,8 @@
 Data: 11.10
+Obecni:
+- Oliwia Sokołowska
+- Anna Czernik
+- Natalia Nowak
 
 Zadania: 
 Pierwsze spotkanie kończy się konkretnymi – decyzjami i gotowym środowiskiem pracy
