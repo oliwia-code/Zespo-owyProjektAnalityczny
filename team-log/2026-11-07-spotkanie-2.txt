@@ -1,4 +1,8 @@
 Data: 07.11
+Obecni:
+- Oliwia Sokołowska
+- Anna Czernik
+- Natalia Nowak
 
 Zadania: 
 Drugie spotkanie poświęcone jest doprecyzowaniu koncepcji projektu analitycznego, zaplanowaniu pozyskiwania danych oraz podziałowi obowiązków w zespole. 
