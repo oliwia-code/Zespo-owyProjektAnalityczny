@@ -33,19 +33,19 @@
 | `speed` | `float64` | Średnie tempo w przeliczeniu prawdopodobnie na min/km. | Liczba zmiennoprzecinkowa, np. 3.08 | API Datasport |
 | `odleglosc` | `float64` | Długość całego dystansu w metrach. | 10000.00 | API Datasport |
 | `speed` | `float64` | Średnie tempo w przeliczeniu prawdopodobnie na min/km. | Liczba zmiennoprzecinkowa, np. 3.08 | API Datasport |
-| `wiek_numeryczny` | `float64` | Wiek uczestnika wyekstrahowany ze zmiennej `katw`. | np. 30.0 | Inżynieria cech |
-| `czy_lokals` | `int64` | Flaga warunkowa wskazująca biegacza z Warszawy na podstawie pola `miejscowosc`. | 0 lub 1 | Inżynieria cech |
-| `estymacja_naiwna` | `float64` | Przewidywany czas na mecie jako dwukrotność `czas_5km`. | Liczba, np. 3600.0 | Inżynieria cech |
-| `koszyk_startowy` | `category` | Kategoryzacja (binning) opóźnienia zawodnika na starcie względem wystrzału startera (na podstawie `start`). | 'Szybki', 'Sredni', 'Wolny' | Inżynieria cech (Zadanie 3) |
+| `wiek_numeryczny` | `float64` | Dokładny wiek uczestnika obliczony na podstawie roku urodzenia (`rokur`). Wartości 0 traktowane jako brak danych. | np. 27.0 | Inżynieria cech |
+| `czy_lokals` | `int64` | Flaga warunkowa wskazująca biegacza z Warszawy na podstawie pola `miasto`. | 0 lub 1 | Inżynieria cech |
+| `estymacja_naiwna` | `float64` | Przewidywany czas na mecie jako dwukrotność czasu na 5 km (`czas1`). | Liczba, np. 3600.0 | Inżynieria cech |
+| `koszyk_startowy` | `category` | Kategoryzacja (binning) opóźnienia zawodnika na starcie względem wystrzału startera (na podstawie `start`). | 'Szybki', 'Sredni', 'Wolny' | Inżynieria cech |
 
 <br>
 
 **Uzasadnienie wprowadzonych zmiennych (Inżynieria cech - Zadanie 3):**
 Nowe zmienne zostały dodane na podstawie wiedzy domenowej. Każda z nich opiera się wyłącznie na danych dostępnych po przekroczeniu przez biegacza maty na 5. kilometrze, co zapobiega wyciekowi danych (data leakage):
-* **`wiek_numeryczny`:** Zmiana zmiennej kategorycznej (np. 'K30') na numeryczną (30.0) pozwala modelom drzewiastym (m.in. Random Forest) łatwiej uchwycić ciągły charakter wieku i spadku wydolności niż po zastosowaniu One-Hot Encoding[cite: 1].
-* **`czy_lokals`:** Biegacze lokalni omijają trudy podróży i noclegów wyjazdowych, co może pozytywnie wpływać na regenerację i ostateczny czas na mecie[cite: 1].
-* **`estymacja_naiwna`:** Stanowi wewnętrzny punkt odniesienia w zbiorze. Algorytmom ML łatwiej jest uczyć się odchyleń od tempa idealnie równego (reszt) niż estymować końcowy czas od zera[cite: 1].
-* **`koszyk_startowy`:** Na dużych imprezach masowych strefy startowe przydzielane są według deklarowanego tempa. Opóźnienie przekroczenia linii startu jest silnym predyktorem ogólnego poziomu biegacza[cite: 1].
+* **`wiek_numeryczny`:** Obliczenie dokładnego wieku na podstawie roku urodzenia (`rokur`) jest znacznie precyzyjniejsze niż przypisywanie dolnej granicy z kategorii wiekowej (np. 'K30'). Pozwala to modelom ML lepiej uchwycić ciągły charakter wpływu wieku na wydolność biegacza.
+* **`czy_lokals`:** Biegacze lokalni omijają trudy podróży i noclegów wyjazdowych, co może pozytywnie wpływać na regenerację i ostateczny czas na mecie (wartość wyliczana na podstawie pola `miasto`).
+* **`estymacja_naiwna`:** Stanowi wewnętrzny punkt odniesienia w zbiorze. Algorytmom ML znacznie łatwiej jest uczyć się odchyleń od tempa idealnie równego (reszt) na podstawie wyniku z połowy dystansu (`czas1`) niż estymować końcowy czas na 10 km od zera.
+* **`koszyk_startowy`:** Na dużych imprezach masowych strefy startowe przydzielane są według deklarowanego tempa. Opóźnienie przekroczenia linii startu jest silnym predyktorem ogólnego poziomu sportowego biegacza.
 
 **Pominięte zmienne:**
-Podczas zrzutu danych z API zidentyfikowano kilkadziesiąt dodatkowych kolumn technicznych i flag (m.in. serie `mscdod1-8`, `nazdod1-8`, `uwagi`, `zlystart`, `dns`, `dnf`, `dsq`). Zostały one celowo pominięte w niniejszym słowniku. Wstępna inspekcja surowego pliku wykazała, że są to w przytłaczającej większości puste zmienne (wartości null, puste ciągi znaków lub zera), których system Datasport nie wykorzystał przy tym konkretnym biegu. Całkowite usunięcie tych kolumn z ramki danych (drop) będzie jednym z pierwszych kroków czyszczenia w naszym notatniku EDA, co pozwoli zoptymalizować zbiór wyłącznie pod kątem naszego pytania badawczego.
+Podczas zrzutu danych z API zidentyfikowano kilkadziesiąt dodatkowych kolumn technicznych i flag (m.in. serie `mscdod1-8`, `nazdod1-8`, `uwagi`, `zlystart`, `dns`, `dnf`, `dsq`). Zostały one celowo pominięte w niniejszym słowniku. Wstępna inspekcja surowego pliku wykazała, że są to w przytłaczającej większości puste zmienne (wartości null, puste ciągi znaków lub zera), których system Datasport nie wykorzystał przy tym konkretnym biegu. Całkowite usunięcie tych kolumn z ramki danych (drop) będzie jednym z pierwszych kroków czyszczenia w naszym notatniku EDA, co pozwoli zoptymalizować zbiór wyłącznie pod kątem naszego pytania badawczego. Wartości `0` w kolumnie `rokur` również zostaną potraktowane jako brak danych do usunięcia lub imputacji.
