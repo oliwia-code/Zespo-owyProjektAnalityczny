@@ -9,6 +9,7 @@ Jest to przydatne w celu oszacowania przez organizatora jak rozlokować zasoby i
 
 ## 2. Główne pytanie badawcze
 **Czy na podstawie czasu uzyskanego na 5 km oraz danych demograficznych uczestników (płeć i kategoria wiekowa) można skutecznie przewidzieć czas netto ukończenia biegu na dystansie 10 km?**
+
 Pytanie będzie weryfikowane z wykorzystaniem następujących zmiennych ze zbioru danych:
 
 - plec – płeć uczestnika (K/M),
