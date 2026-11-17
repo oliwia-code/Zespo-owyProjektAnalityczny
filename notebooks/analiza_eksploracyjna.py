@@ -106,8 +106,8 @@ print(empty_columns)
 # Liczba pustych kolumn: 23
 # Puste kolumny: ['nazdod2', 'nazdod3', 'nazdod4', 'nazdod5', 'nazdod6', 'nazdod7', 'nazdod8', 'uwagi', 'czasd1', 'czasd2', 'czasd3', 'czast1', 'czast2', 'nazdodw2', 'nazdodw3', 'nazdodw4', 'nazdodw5', 'nazdodw6', 'nazdodw7', 'nazdodw8', 'dns', 'dnf', 'korona']
 
-# Usunięcie pustych kolumn
-df = df.dropna(axis=1, how='all')
+# Usunięcie pustych kolumn i z wieloma brakami (>50%)
+df = df.dropna(axis=1, thresh=len(df)*0.5)
 print("Liczba kolumn po usunięciu:", len(df.columns))
 print("Pozostałe kolumny:")
 print(df.columns.tolist())
@@ -126,3 +126,56 @@ missing_data = missing_data.sort_values(
     ascending=True
 )
 display(missing_data[missing_data['Liczba braków'] > 0])
+
+# Funkcja pomocnicza
+def check_missing(df, column_name):
+    if column_name not in df.columns:
+        print(f"Kolumna '{column_name}' nie istnieje w zbiorze danych.")
+        return
+
+    missing_count = df[column_name].isnull().sum()
+    missing_percent = (missing_count / len(df) * 100).round(2)
+
+    print(f"Kolumna: {column_name}")
+    print(f"Liczba braków: {missing_count}")
+    print(f"Procent braków: {missing_percent}%")
+
+#column_name = input("Podaj nazwę kolumny: ")
+#check_missing(df, column_name)
+
+# Kolumny do usunięcia, niepotrzebne do analizy
+# nazwisko, imie, druzyna, mscnetto, czaswsp, meta, kraj, start, anonim, id_per
+columns_to_drop = [
+    'nazwisko', 'imie', 'druzyna', 'mscnetto',
+    'czaswsp', 'meta', 'kraj', 'start',
+    'anonim', 'id_per'
+]
+df = df.drop(columns=columns_to_drop, errors='ignore')
+
+ # Uzupełnić niepełne kolumny
+ # miasto (1 brak)
+df['miasto'] = df['miasto'].fillna('Nieznane')
+
+print("Liczba kolumn po usunięciu:", len(df.columns))
+print("Pozostałe kolumny:")
+print(df.columns.tolist())
+
+missing_data = pd.DataFrame({
+    'Liczba braków': df.isnull().sum(),
+    'Procent braków (%)': (df.isnull().sum() / len(df) * 100).round(2)
+})
+# Sortowanie według liczby braków
+missing_data = missing_data.sort_values(
+    by='Liczba braków',
+    ascending=True
+)
+display(missing_data[missing_data['Liczba braków'] > 0])
+
+#Liczba kolumn po usunięciu: 49
+#Pozostałe kolumny:
+#['kod', 'dystans', 'numer', 'miasto', 'plec', 'rokur', 'katw', 'msckatw', 'katgrupa', 'msckatg', 'mscplec', 'czas1',
+#'msc1', 'czas', 'msc', 'czasnetto', 'mscwsp', 'mscdod1', 'mscdod2', 'mscdod3', 'mscdod4', 'mscdod5', 'mscdod6', 'mscdod7',
+#'mscdod8', 'typsztaf', 'zlystart', 'mscd1', 'mscd2', 'mscd3', 'msct1', 'msct2', 'ostmeta', 'mscdodw1', 'mscdodw2', 'mscdodw3',
+#'mscdodw4', 'mscdodw5', 'mscdodw6', 'mscdodw7', 'mscdodw8', 'startn', 'koronas', 'odleglosc', 'speed', 'czaswma', 'openwma', 'sexwma', 'agewma']
+
+# Możliwe, że nie wszystkie kolumny (dane) zostaną wykorzystane w analizie, ponieważ nie odpowiadają bezpośrednio na pytania badawcze. Zostawiamy je jednak na wszelki wypadek, np. jeśli podczas analizy nie okaże się, że warto jest poszerzyć kontekst analizowanych danych
