@@ -83,6 +83,13 @@ display(df.describe(include='all'))
 
 """# BRAKUJĄCE DANE I USUWANIE NIEPOTRZEBNYCH KOLUMN"""
 
+# Usunięcie zawodników bez wyniku
+bez_wyniku = df[df['czasnetto'].isna()]
+df = df[df['czasnetto'].notna()].copy()
+
+print("Liczba zawodników bez wyniku:", len(bez_wyniku))
+print("Liczba zawodników uwzględnionych w analizie:", len(df)) # tam gdzie jest podany czasnetto
+
 # Analiza braków
 missing_data = pd.DataFrame({
     'Liczba braków': df.isnull().sum(),
