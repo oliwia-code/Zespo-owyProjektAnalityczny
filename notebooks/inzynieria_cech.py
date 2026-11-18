@@ -25,13 +25,8 @@ def dodaj_nowe_zmienne(df):
         except:
             return np.nan
 
-
-    df['estymacja_naiwna'] = df['czas1'].apply(time_to_seconds) * 2
-
-
     start_sec = df['start'].apply(time_to_seconds)
     opoznienie = start_sec - (12 * 3600)
-
 
     # do 2 min (Szybki), 2-10 min (Średni), powyżej 10 min (Wolny)
     df['koszyk_startowy'] = pd.cut(
@@ -39,6 +34,10 @@ def dodaj_nowe_zmienne(df):
         bins=[-np.inf, 120, 600, np.inf],
         labels=['Szybki', 'Sredni', 'Wolny']
     )
+
+    df['czas1_sek'] = df['czas1'].apply(time_to_seconds)
+    df['czasnetto_sek'] = df['czasnetto'].apply(time_to_seconds)
+    df['estymacja_naiwna'] = df['czas1_sek'] * 2
 
     return df
 
