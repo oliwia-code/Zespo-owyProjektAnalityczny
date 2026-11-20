@@ -43,7 +43,8 @@ def dodaj_nowe_zmienne(df):
 
 # Sposób użycia w głównym skrypcie:
 if __name__ == "__main__":
-    df_raw = pd.read_csv('../data/dane_surowe_biegnij_warszawo.csv', dtype=str)
+    df_raw = pd.read_csv('../data/dane_oczyszczone_biegnij_warszawo.csv', dtype=str)
+    # df_raw = pd.read_csv('../data/dane_surowe_biegnij_warszawo.csv', dtype=str)
     df_wzbogacone = dodaj_nowe_zmienne(df_raw)
     sciezka_wyjsciowa = '../data/dane_wzbogacone_biegnij_warszawo.csv'
     df_wzbogacone.to_csv(sciezka_wyjsciowa, index=False, encoding='utf-8')
