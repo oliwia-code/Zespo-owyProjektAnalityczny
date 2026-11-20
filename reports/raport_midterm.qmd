@@ -1,0 +1,181 @@
+---
+title: "Raport midterm"
+subtitle: "Predykcja czasu ukończenia biegu 10 km na podstawie wyniku z połowy dystansu i danych demograficznych"
+author: "Anna Czernik, Natalia Nowak, Oliwia Sokołowska"
+date: "21.11.2026"
+lang: pl
+format:
+  pdf:
+    pdf-engine: xelatex
+    documentclass: article
+    papersize: a4
+    geometry: margin=19mm
+    fontsize: 10pt
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    colorlinks: true
+    fig-pos: H
+    keep-tex: false
+execute:
+  enabled: false
+number-sections: true
+---
+
+# Streszczenie
+
+Celem projektu jest opracowanie modelu przewidującego czas netto ukończenia biegu na dystansie 10 km na podstawie międzyczasu z 5 km i danych demograficznych uczestników. Analiza wykorzystuje wyniki ING Biegnij Warszawo 2026 pozyskane z API Datasport. Surowy zbiór zawierał 9887 rekordów, a po oczyszczeniu i dodatkowej weryfikacji czasów do modelowania wykorzystano 6605 obserwacji. Dane podzielono na zbiór treningowy (80%) i testowy (20%). Porównano dwa modele odniesienia, trzy warianty regresji liniowej oraz trzy warianty Gradient Boosting. Najniższy średni błąd bezwzględny uzyskał Gradient Boosting z pełnym zestawem cech (MAE = 93,32 s), co oznacza poprawę o 3,08 s względem naiwnego oszacowania czasu. Regresja liniowa z pełnym zestawem cech osiągnęła najniższe RMSE i najwyższe R². Dotychczasowe wyniki wskazują, że czas na 5 km ma dużą wartość predykcyjną, a dodanie informacji demograficznych daje niewielką poprawę. W dalszej części projektu planujemy pogłębioną analizę błędów, walidację modeli, analizę tempa obu połówek dystansu oraz prognozowanie liczby uczestników docierających do mety w określonych przedziałach czasowych.
+
+# Opis problemu badawczego i pytań analitycznych
+
+Organizatorzy biegów masowych muszą dostosować liczbę wolontariuszy i obsługę mety do zmieniającego się natężenia ruchu uczestników. Informacja o czasie osiągniętym w połowie dystansu może pomóc przewidzieć moment, w którym zawodnik ukończy bieg.
+
+**Główne pytanie badawcze:** Czy na podstawie czasu uzyskanego na 5 km oraz danych demograficznych uczestników (płeć i kategoria wiekowa) można skutecznie przewidzieć czas netto ukończenia biegu na dystansie 10 km?
+
+Hipotezy badawcze:
+
+- **H1:** Czas uzyskany na 5 km jest istotnym czynnikiem pozwalającym przewidzieć końcowy czas biegu na 10 km.
+- **H2:** Uwzględnienie płci i kategorii wiekowej poprawia dokładność przewidywania czasu ukończenia biegu.
+- **H3:** Mężczyźni częściej zwalniają na drugiej połowie dystansu, natomiast kobiety utrzymują bardziej stabilne tempo.
+
+**Kryterium sukcesu:** uzyskanie MAE niższego niż w modelu naiwnym, który przyjmuje końcowy czas jako dwukrotność czasu z 5 km. Docelowo chcemy również pokazać praktyczną przydatność predykcji dla organizatora.
+
+\newpage
+
+# Dane
+
+## Źródło i zakres
+
+Dane pochodzą z publicznego API Datasport, z endpointu [results.json](https://wyniki.datasport.pl/results5969/results.json) dotyczącego ING Biegnij Warszawo 2026. Zespół odnalazł zapytanie do API za pomocą narzędzi deweloperskich przeglądarki, a następnie pobrał dane w Pythonie (`requests`), przekształcił je do tabeli `pandas` i zapisał jako CSV. Analiza obejmuje jeden bieg i dystans 10 km (`dystans = 1`).
+
+| Etap | Rekordy | Kolumny |
+|:---|---:|---:|
+| Dane surowe | 9887 | 87 |
+| Dane oczyszczone | 6668 | 50 |
+| Dane wzbogacone | 6668 | 56 |
+| Po dodatkowej weryfikacji czasów | 6605 | — |
+| Zbiór treningowy | 5284 | — |
+| Zbiór testowy | 1321 | — |
+
+Źródło: pliki CSV w repozytorium i wyniki notebooka modelowania. Ze zbioru surowego usunięto 3219 rekordów bez czasu netto; następnie odrzucono 63 rekordy z brakującym lub niepoprawnym czasem wymaganym do modelowania.
+
+## Kluczowe zmienne
+
+| Zmienna źródłowa | Znaczenie |
+|:---|:---|
+| `czas1` | Międzyczas po 5 km |
+| `czasnetto` | Czas od przekroczenia startu do mety (cel) |
+| `plec`, `katw` | Płeć i kategoria wiekowa |
+| `rokur`, `miasto` | Rok urodzenia i deklarowane miasto |
+| `start` | Zegarowa godzina przekroczenia startu |
+
+## Problemy jakościowe i rozwiązania
+
+| Problem | Zastosowane rozwiązanie |
+|:---|:---|
+| Brak wyniku netto | Usunięcie rekordów bez zmiennej docelowej. |
+| Kolumny puste lub z ponad 50% braków | Usunięcie; pominięcie także wybranych zbędnych pól osobowych i technicznych. |
+| Niejednolity format czasu | Zamiana przecinka na kropkę, konwersja do sekund; niepoprawne wartości zamieniane na brak. |
+| Brak miasta, rok urodzenia równy 0 | Miasto oznaczane jako nieznane; wiek przy roku 0 ustawiany jako brak. |
+| Błędne czasy 5 i 10 km | Odrzucenie braków, czasów niedodatnich oraz czasu końcowego nie większego niż międzyczas. |
+
+Nie wprowadzano osobnego progu dla wartości odstających w poprawnych czasach. Ich wpływ na błędy modeli zostanie przeanalizowany później.
+
+\newpage
+
+# Metodologia
+
+## Pipeline i inżynieria cech
+
+Proces obejmuje pobranie danych, wstępne czyszczenie, utworzenie nowych cech, filtrację czasów, wydzielenie zbioru treningowego i testowego, przetwarzanie w `Pipeline`, trening oraz ewaluację. Wykorzystano m.in. pliki `pobranie_danych.py`, `analiza_eksploracyjna_2.py`, `inzynieria_cech.py` i notebook modelowania.
+
+| Nowa cecha | Sposób utworzenia i cel |
+|:---|:---|
+| `czas1_sek` | Czas na 5 km w sekundach. |
+| `czasnetto_sek` | Czas netto w sekundach; zmienna docelowa. |
+| `wiek_numeryczny` | 2026 minus rok urodzenia; przybliżony wiek. |
+| `czy_lokals` | Flaga 1 dla miasta zawierającego „WARSZAWA”, w pozostałych przypadkach 0. |
+| `koszyk_startowy` | Opóźnienie względem godz. 12:00: do 2 min, powyżej 2 do 10 min, powyżej 10 min. |
+| `estymacja_naiwna` | Dwa razy czas na 5 km; tylko model odniesienia. |
+
+W `ColumnTransformer` brakujące wartości numeryczne uzupełniano medianą i stosowano `StandardScaler`. Dla kategorii uzupełniano braki najczęstszą wartością i stosowano `OneHotEncoder` z obsługą nieznanych kategorii. Dopasowanie preprocessingu odbywało się wyłącznie na danych treningowych. Nie używano cech wyliczonych na podstawie czasu końcowego jako wejścia do modelu. Skalowanie jest przydatne dla wspólnego potoku, choć drzewa go nie wymagają.
+
+## Wybór modeli
+
+Przygotowano `DummyRegressor` (średnia czasów treningowych) i model naiwny (2 × czas na 5 km) jako punkty odniesienia. Regresję liniową (LR) wybrano ze względu na prostotę i możliwość sprawdzenia, czy zależność jest głównie liniowa. Gradient Boosting (GB) wybrano jako metodę zaawansowaną: kolejne drzewa poprawiają błędy poprzednich, dzięki czemu model może uchwycić nieliniowości i interakcje cech.
+
+| Wariant LR / GB | Cechy wejściowe |
+|:---|:---|
+| 1 | Czas na 5 km |
+| 2 | Czas na 5 km, płeć, kategoria wiekowa |
+| 3 | Wariant 2 + wiek, flaga lokalności, koszyk startowy |
+
+Gradient Boosting: 200 drzew, `learning_rate=0.05`, `max_depth=3`, `min_samples_leaf=20`, `loss='absolute_error'`, `random_state=42`. Parametry przyjęto bez strojenia; funkcja straty odpowiada głównej metryce MAE.
+
+## Walidacja i metryki
+
+Wszystkie modele oceniono na wspólnym losowym podziale 80/20 (`random_state=42`). Jest to analiza przekrojowa uczestników jednego biegu, nie prognoza szeregu czasowego. Główna metryka MAE mierzy średni bezwzględny błąd w sekundach, RMSE silniej uwzględnia duże błędy, R² określa dopasowanie względem średniej czasu, a MAPE przedstawia średni bezwzględny błąd procentowy. MAE i RMSE podano także w minutach.
+
+\newpage
+
+# Wstępne wyniki
+
+## Porównanie modeli na zbiorze testowym
+
+| Model | MAE [s] | MAE [min] | RMSE [s] | R² | MAPE [%] |
+|:---|---:|---:|---:|---:|---:|
+| DummyRegressor | 547,37 | 9,12 | 683,44 | -0,0036 | 15,82 |
+| Model naiwny | 96,40 | 1,61 | 159,76 | 0,9452 | 2,53 |
+| LR 1 | 94,94 | 1,58 | 155,70 | 0,9479 | 2,53 |
+| LR 2 | 94,60 | 1,58 | 155,18 | 0,9483 | 2,52 |
+| LR 3 | 94,06 | 1,57 | **154,43** | **0,9488** | 2,50 |
+| GB 1 | 94,66 | 1,58 | 157,12 | 0,9470 | 2,51 |
+| GB 2 | 94,23 | 1,57 | 156,75 | 0,9472 | 2,50 |
+| GB 3 | **93,32** | **1,56** | 155,78 | 0,9479 | **2,47** |
+
+Obliczenia na 1321 obserwacjach testowych. Źródło: `porownanie_modeli.csv` i notebook `Gradient_Boosting_Colab.ipynb`, sekcje 1–6. RMSE najlepszego GB wyniósł 2,60 min, a LR 3 – 2,57 min. Wykresy poniżej to przycięte zrzuty ekranowe wyników z Colaba (bez kodu i elementów interfejsu).
+
+![Porównanie MAE wszystkich modeli. Szary – baseline, niebieski – LR, turkusowy – GB.](wykresy/01_mae.png){width=98mm}
+
+**Interpretacja:** DummyRegressor osiąga znacznie większy błąd, ponieważ nie wykorzystuje indywidualnych informacji o uczestnikach. Prosty model naiwny uzyskuje już MAE poniżej 100 sekund. Wszystkie warianty LR i GB poprawiają ten wynik, ale różnice między nimi są niewielkie. Najniższy MAE osiągnął GB 3, który myli się średnio o około minutę i 33 sekundy.
+
+**Wstępne kryterium sukcesu:** spełnione na tym zbiorze testowym, ponieważ 93,32 s jest mniejsze od 96,40 s. Nie jest to jeszcze niezależna walidacja ostatecznie wybranego modelu.
+
+\newpage
+
+## Szczegółowe porównanie metryk
+
+![Porównanie MAE, RMSE, R² i MAPE bez DummyRegressor; skróty LR i GB oznaczają warianty z sekcji 4.](wykresy/02_metryki.png){width=158mm}
+
+GB 3 ma najniższe MAE i MAPE, natomiast LR 3 ma najniższe RMSE i najwyższe R². Wyniki wskazują, że bardziej złożony model nie przewyższa prostszego według wszystkich metryk. Zawężona oś R² uwidacznia drobne różnice, nie oznacza ich dużego znaczenia praktycznego.
+
+![Zmniejszenie MAE względem modelu naiwnego.](wykresy/03_poprawa.png){width=98mm}
+
+GB 3 zmniejsza MAE względem modelu naiwnego o 3,08 s (około 3,2%), a względem LR 3 o 0,74 s. Poprawa jest niewielka i wymaga sprawdzenia na kolejnych podziałach danych.
+
+**Stan hipotez:** H1 – wyniki LR 1 i GB 1 (R² ok. 0,95) wspierają przyjęte założenie predykcyjne. H2 – MAE po dodaniu demografii maleje o 0,34 s w LR i 0,44 s w GB (różnice liczone przed zaokrągleniem). Nie wykazano jeszcze istotności tych różnic. H3 pozostaje do zweryfikowania, ponieważ bieżący notebook kończy się na porównaniu modeli.
+
+\newpage
+
+# Plan na drugą połowę projektu
+
+Poniższy harmonogram jest propozycją do uzgodnienia na Spotkaniu 5 (21.11.2026). Terminy odnoszą się do kolejnych etapów, ponieważ data oddania raportu końcowego nie została podana.
+
+| Termin | Zadanie i oczekiwany rezultat |
+|:---|:---|
+| 22–28.11 | Uporządkowanie pipeline'u i walidacja krzyżowa na danych treningowych; ocena stabilności metryk. |
+| 29.11–05.12 | Strojenie hiperparametrów na danych treningowych; porównanie LR i GB. |
+| 06–12.12 | Analiza reszt, wartości odstających, błędów według płci i wieku, ważności cech; weryfikacja H3 poprzez porównanie czasów obu połówek. |
+| 13–19.12 | Prognoza liczby osób na mecie w przedziałach 5-minutowych na podstawie godziny startu i predykcji; ocena praktyczna. |
+| Przed oddaniem końcowym | Aktualizacja wniosków, dokumentacji, raportu Quarto i prezentacji; niezależna walidacja, jeśli dostępne będą nowe dane. |
+
+Ograniczenia: dotychczasowa analiza obejmuje tylko jeden bieg oraz zawodników z prawidłowymi czasami na 5 i 10 km. Nie uwzględnia treningu, pogody ani zdarzeń na trasie. Wyniki z jednego podziału nie dowodzą przewagi modelu w innych warunkach. Zbiór testowy został już wykorzystany do porównania wariantów, więc do niezależnej oceny modelu końcowego potrzebne będą nowe dane lub odpowiednio zaprojektowana walidacja.
+
+# Podział pracy w zespole
+
+Dotychczasowe odpowiedzialności odtworzono z team logów Spotkań 2–4 oraz aktualnego notebooka. Podział pisania midterm jest propozycją, a nie potwierdzeniem wykonania poszczególnych rozdziałów przez wskazane osoby.
+
+| Osoba | Dotychczasowe zadania / implementacja | Proponowane rozdziały i dalsze prace |
+|:---|:---|:---|
+| Anna Czernik | Pozyskanie danych, plan źródeł, słownik zmiennych, inżynieria cech, walidacja i metryki. | 3–4 (źródło, cechy, walidacja); kontrola pipeline'u i walidacji. |
+| Oliwia Sokołowska | Team logi, koordynacja dokumentacji, EDA i czyszczenie danych (zgodnie z przydziałem). | 1, 3 (jakość), 6–7; analiza jakości i przygotowanie dokumentacji. |
+| Natalia Nowak | Pytania badawcze, hipotezy, modelowanie; implementacja GB i porównanie modeli w Colabie. | 2, 4 (modele), 5; rozwój modeli i analiza predykcji. |
