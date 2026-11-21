@@ -20,18 +20,51 @@ Za tydzień (Spotkanie 5) oddajecie raport midterm – dziś planujecie jego str
 
 Podsumowanie realizacji zadań: 
 1. Dyskusja, plan realizacji, podział zadań
-2. Usunięcie pustych kolumn, resztę czyszczenia danych wykona: Oliwia
-3. 
-4. 
-5. 
-6. 
-7. 
+2. Usunięcie pustych kolumn, resztę czyszczenia danych wykona: Oliwia; wykonane, później doprecyzowanie, które zmienne są przydatne i wprowadzanie poprawek
+3. Utworzone 4 nowe zmienne
+4. baseline: DummyRegressor, Naiwna estymacja domenowa, Regresja liniowa; modele: GradientBoostingRegressor
+5. Przygotowany schemat
+6., 7. Przygotowanie prezentacji
 
 Logi: 
 - Wyczytanie danych w Colabie
 - Analiza eksploracyjna danych
 - Identyfikacja i usunięcie pustych kolumn
 - Dopracowanie pytań i hipotez badawczych na podstawie danych po ekspoloracji
+
+-----
+
+Notatki do prezentacji midterm: 
+
+1. Znalezione dane - czego dotyczą? 
+2. Pytania i hipotezy - jak możemy wykorzystać te dane? 
+Czy na podstawie czasu uzyskanego na 5 km oraz danych demograficznych uczestników (płeć i kategoria wiekowa) można skutecznie przewidzieć czas netto ukończenia biegu na dystansie 10 km?
+Głównym celem analizy będzie stworzenie modelu predykcyjnego, który na podstawie czasu uzyskanego na 5 km oraz płci i kategorii wiekowej oszacuje końcowy czas biegu na 10 km i godzinę zegarową, w której to się stanie.
+Jako zmienną, którą będziemy przewidywać, przyjmujemy czas netto ukończenia biegu. Jest to czas mierzony od momentu przekroczenia linii startu do przekroczenia linii mety przez danego uczestnika.
+Analiza będzie dotyczyć osób, dla których dostępne są prawidłowe czasy na 5 km i 10 km. Przed rozpoczęciem modelowania dane zostaną oczyszczone, a wartości czasu przeliczone na sekundy, aby możliwe było ich porównywanie i wykorzystanie w modelach.
+Praktycznym zastosowaniem projektu będzie możliwość oszacowania, kiedy uczestnicy dotrą do mety. Informacje te mogą pomóc organizatorom w lepszym rozplanowaniu pracy wolontariuszy i obsługi biegu, szczególnie w momentach, gdy na mecie pojawia się najwięcej zawodników.
+
+H1. Czas uzyskany na 5 km jest istotnym czynnikiem pozwalającym przewidzieć końcowy czas biegu na 10 km
+H2. Uwzględnienie płci i kategorii wiekowej uczestników poprawia dokładność przewidywania czasu ukończenia biegu na 10 km.
+H3. Mężczyźni częściej zwalniają na drugiej połowie dystansu 10 km, natomiast kobiety utrzymują bardziej stabilne tempo biegu.
+
+3. Przygotowanie danych
+	1) Usunięcie wierszy z uczestnikami, którzy nie brali udziału w biegu
+	2) Usunięcie pustych kolumn
+	3) Decyzja, które zmienne są niepotrzebne do analizy i usunięcie ich
+4. Czego dotyczą zmienne, które zostały zostawione w zbiorze?
+	1) Identyfikacja zawodnika (np. kod)
+	2) Dane demograficzne (np. plec, miasto, rokur)
+	3) Grupa/przypisanie uczestnika (np. katgrupa, katw)
+	4) Miejsce w rankingu w konkretnej grupie lub etapie biegu (np. msc1. msc)
+	5) Dane dotyczące prędkości i pokonanej odległości (np. speed, odleglosc)
+5. Inżynieria danych - jakie zmienne zostały utworzone i dlaczego? 
+wiek_numeryczny - Dokładny wiek uczestnika obliczony na podstawie roku urodzenia (rokur). Wartości 0 traktowane jako brak danych. Obliczenie dokładnego wieku na podstawie roku urodzenia (rokur) jest znacznie precyzyjniejsze niż przypisywanie dolnej granicy z kategorii wiekowej (np. 'K30'). Pozwala to modelom ML lepiej uchwycić ciągły charakter wpływu wieku na wydolność biegacza.
+czy_lokals - Flaga warunkowa wskazująca biegacza z Warszawy na podstawie pola miasto. Biegacze lokalni omijają trudy podróży i noclegów wyjazdowych, co może pozytywnie wpływać na regenerację i ostateczny czas na mecie (wartość wyliczana na podstawie pola miasto).
+estymacja_naiwna - Przewidywany czas na mecie jako dwukrotność czasu na 5 km (czas1). tanowi wewnętrzny punkt odniesienia w zbiorze. Algorytmom ML znacznie łatwiej jest uczyć się odchyleń od tempa idealnie równego (reszt) na podstawie wyniku z połowy dystansu (czas1) niż estymować końcowy czas na 10 km od zera.
+koszyk_startowy - Kategoryzacja (binning) opóźnienia zawodnika na starcie względem wystrzału startera (na podstawie start). Stanowi wewnętrzny punkt odniesienia w zbiorze. Algorytmom ML znacznie łatwiej jest uczyć się odchyleń od tempa idealnie równego (reszt) na podstawie wyniku z połowy dystansu (czas1) niż estymować końcowy czas na 10 km od zera. Na dużych imprezach masowych strefy startowe przydzielane są według deklarowanego tempa. Opóźnienie przekroczenia linii startu jest silnym predyktorem ogólnego poziomu sportowego biegacza.
+6. Modelowanie
+baseline: DummyRegressor, Naiwna estymacja domenowa, Regresja liniowa; modele: GradientBoostingRegressor
 
 -----
 
